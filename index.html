@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-A-Sketch</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            /* Stack rows vertically */
+            width: 1000px;
+            height: 1000px;
+        }
+
+        .row {
+            display: flex;
+            flex: 1;
+            /* Each row should take up equal space */
+        }
+
+        .item {
+            background-color: beige;
+            border: 1px solid black;
+            width: 50px;
+            height: 50px;
+            flex: 1;
+            /* Items will expand to take up equal space */
+            height: 100%;
+            /* Items will stretch to fill the row height */
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="nameInput" placeholder="Enter a number">
+
+    <button class="btn">Create New Grid</button>
+
+    <div class="container"></div>
+
+    <script>
+        const input = document.getElementById("nameInput");
+        const button = document.querySelector(".btn");
+
+        button.addEventListener("click", (e) => {
+            // Retrieve the input value and convert it to a number
+            const gridSize = parseInt(input.value);
+
+            // Check if the input value is a valid number
+            if (!isNaN(gridSize) && gridSize > 0 && gridSize <= 100) {
+                createGrid(gridSize);
+            } else {
+                alert("Please enter a valid number greater than 0, and less than or equal 100");
+            }
+        });
+
+
+        function createGrid(size) {
+            const gridContainer = document.querySelector(".container");
+
+            // Clear the container before creating a new grid
+            gridContainer.innerHTML = "";
+
+            // Create the rows
+            for (let i = 0; i < size; i++) {
+                const row = document.createElement("div");
+                row.classList.add("row");
+
+                // Create the grid items for each row
+                for (let j = 0; j < size; j++) {
+                    const gridItem = document.createElement("div");
+                    gridItem.classList.add("item");
+                    row.appendChild(gridItem);
+
+                    // Add hover effect for color change
+                    gridItem.addEventListener("mousemove", (e) => {
+                        gridItem.style.backgroundColor = "blue";
+                    });
+                }
+
+                // Append the row to the container
+                gridContainer.appendChild(row);
+            }
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
